@@ -1,13 +1,15 @@
-import { DocumentProvider } from './context/DocumentContext'
-import Home from './Pages/Home'
+import { DocumentProvider } from "./context/DocumentContext";
+import { DocumentUrlsProvider } from "./context/DocumentUrlsContext";
+import Home from "./Pages/Home";
 
 function App() {
-
   return (
     <DocumentProvider>
-      <Home />
+      <DocumentUrlsProvider>
+        <Home />
+      </DocumentUrlsProvider>
     </DocumentProvider>
-  )
+  );
 }
 
-export default App
+export default App;

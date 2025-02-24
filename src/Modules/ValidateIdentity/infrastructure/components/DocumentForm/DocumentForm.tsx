@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { Country, DocumentType } from "../../../../../Enums/Document";
 import { useDocumentContext } from "../../../../../context/DocumentContext";
+import { useDocumentUrls } from "../../../../../context/DocumentUrlsContext";
+import { GenericResponse } from "../../../../../models/Http";
+import { ValidateIdentityUseCase } from "../../../application/ValidateIdentity.useCases";
+import { DataToCreateValidation } from "../../../domain/ValidateIdentity";
+import { UpdaloadDocumentController } from "../../controllers/UploadDocument.controller";
 import "./DocumentForm.scss";
 
 interface DocumentFormProps {
@@ -12,12 +17,15 @@ interface DocumentFormProps {
   onNext: () => void;
 }
 
+const uploadDocumentController = new UpdaloadDocumentController();
+
 const DocumentForm: React.FC<DocumentFormProps> = ({
   formData,
   setFormData,
   onNext,
 }) => {
   const { setDocumentData } = useDocumentContext();
+  const { setFrontUrl, setReverseUrl } = useDocumentUrls();
   const [isComplete, setIsComplete] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -26,11 +34,26 @@ const DocumentForm: React.FC<DocumentFormProps> = ({
     if (newFormData.country && newFormData.documentType) setIsComplete(true);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.country && formData.documentType) {
       setDocumentData(formData.country, formData.documentType);
-      onNext();
+      const data: DataToCreateValidation = {
+        type: "document-validation",
+        country: formData.country,
+        document_type: formData.documentType,
+      };
+
+      const response: GenericResponse = await ValidateIdentityUseCase.createValidation(
+        uploadDocumentController,
+        data
+      );
+
+      if (response.status === 201) {
+        setFrontUrl(response?.data?.front_url);
+        setReverseUrl(response?.data?.reverse_url);
+        onNext();
+      }
     }
   };
 

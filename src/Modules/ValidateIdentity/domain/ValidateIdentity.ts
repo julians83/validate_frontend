@@ -1,11 +1,10 @@
-import { Country, DocumentType } from "../../../Enums/Document";
 import { GenericResponse } from "../../../models/Http";
 
 
 export interface DataToCreateValidation {
   type: string;
-  country: Country;
-  document_type: DocumentType;
+  country: string;
+  document_type: string;
 }
 
 export interface DataToValidateIdentity {
