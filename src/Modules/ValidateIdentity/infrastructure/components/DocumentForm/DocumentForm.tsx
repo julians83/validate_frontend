@@ -5,7 +5,7 @@ import { useDocumentUrls } from "../../../../../context/DocumentUrlsContext";
 import { GenericResponse } from "../../../../../models/Http";
 import { ValidateIdentityUseCase } from "../../../application/ValidateIdentity.useCases";
 import { DataToCreateValidation } from "../../../domain/ValidateIdentity";
-import { UpdaloadDocumentController } from "../../controllers/UploadDocument.controller";
+import { ValidateIdentityController } from "../../controllers/UploadDocument.controller";
 import "./DocumentForm.scss";
 
 interface DocumentFormProps {
@@ -17,7 +17,7 @@ interface DocumentFormProps {
   onNext: () => void;
 }
 
-const uploadDocumentController = new UpdaloadDocumentController();
+const validateIdentityController = new ValidateIdentityController();
 
 const DocumentForm: React.FC<DocumentFormProps> = ({
   formData,
@@ -45,13 +45,14 @@ const DocumentForm: React.FC<DocumentFormProps> = ({
       };
 
       const response: GenericResponse = await ValidateIdentityUseCase.createValidation(
-        uploadDocumentController,
+        validateIdentityController,
         data
       );
 
       if (response.status === 201) {
-        setFrontUrl(response?.data?.front_url);
-        setReverseUrl(response?.data?.reverse_url);
+        console.log("Validation created", response.data);
+        setFrontUrl(response?.data?.instructions?.front_url);
+        setReverseUrl(response?.data?.instructions?.reverse_url);
         onNext();
       }
     }

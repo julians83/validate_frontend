@@ -2,7 +2,7 @@ import { GenericResponse } from "../../../../models/Http";
 import { DataToCreateValidation, DataToGetValidation, DataToValidateIdentity, IValidateIdentity } from "../../domain/ValidateIdentity";
 import ValidateIdentityRepository from "../repository/ValidateIdentity.repository";
 
-export class UpdaloadDocumentController  implements IValidateIdentity{
+export class ValidateIdentityController  implements IValidateIdentity{
     repository: ValidateIdentityRepository;
     constructor() {
         this.repository = new ValidateIdentityRepository();

@@ -1,10 +1,10 @@
 export enum Country {
-    CO = "CO",
-    CL = "CL",
-    MX = "MX",
-    PE = "PE",
-    BR = "BR",
-    CR = "CR",
+    CO = "Colombia",
+    CL = "Chile",
+    MX = "Mexico",
+    PE = "Peru",
+    BR = "Brazil",
+    CR = "Costa Rica",
     ALL = "ALL",
   }
   

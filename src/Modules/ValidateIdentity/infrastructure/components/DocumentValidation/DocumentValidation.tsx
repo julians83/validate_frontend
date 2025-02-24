@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDocumentUrls } from "../../../../../context/DocumentUrlsContext";
 import DocumentForm from "../DocumentForm/DocumentForm";
 import ValidateIdentity from "../UploadDocument/UploadDocument";
 import ValidationResults from "../ValidationResults/ValidationsResults";
@@ -13,12 +14,13 @@ const DocumentValidation = () => {
 
   const [frontImage, setFrontImage] = useState<File | null>(null);
   const [backImage, setBackImage] = useState<File | null>(null);
+  const { frontUrl, reverseUrl } = useDocumentUrls();
+
 
   const steps = [1, 2, 3, 4];
 
   return (
     <div className="validation-container">
-      {/* Stepper */}
       <div className="validation-stepper">
         {steps.map((num) => (
           <div
@@ -52,6 +54,7 @@ const DocumentValidation = () => {
             image={frontImage}
             setImage={setFrontImage}
             onNext={() => setStep(3)}
+            url={frontUrl}
           />
         )}
         {step === 3 && (
@@ -59,9 +62,11 @@ const DocumentValidation = () => {
             image={backImage}
             setImage={setBackImage}
             onNext={() => setStep(4)}
-          />
+            url={reverseUrl}
+
+            />
         )}
-        {step === 4 && <ValidationResults />}
+        {step === 5 && <ValidationResults />}
       </div>
     </div>
   );

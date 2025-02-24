@@ -4,19 +4,20 @@ import {
   DataToValidateIdentity,
 } from "../../domain/ValidateIdentity";
 
+const url = "http://localhost:3001/identity-validate";
+
 export default class ValidateIdentityRepository {
   async createValidation(
     data: DataToCreateValidation
   ): Promise<GenericResponse> {
-    const url = "http://localhost:3001/identity-validate/validate-document";
-    const response = await fetch(url, {
+    const response = await fetch(`${url}/validate-document`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    const result = await response.json();
+    const result: GenericResponse = await response.json();
     return {
       status: response.status,
       data: result,
@@ -27,11 +28,12 @@ export default class ValidateIdentityRepository {
   async uploadDocument(data: DataToValidateIdentity): Promise<GenericResponse> {
     const formData = new FormData();
     formData.append("file", data.file);
-    const response = await fetch(data.url, {
-      method: "POST",
+    formData.append("url", data.url);
+    const response = await fetch(`${url}/upload-image`, {
+      method: "PUT",
       body: formData,
     });
-    const result = await response.json();
+    const result: GenericResponse = await response.json();
     return {
       status: response.status,
       data: result,
