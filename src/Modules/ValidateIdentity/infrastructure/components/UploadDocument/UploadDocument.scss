@@ -1,0 +1,72 @@
+@use '@/styles/variables.scss'as *;
+
+.upload-step {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+
+    &__title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    &__box {
+        width: 220px;
+        height: 140px;
+        background: $card-color;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0 auto;
+
+        &:hover {
+            background: $hover-color;
+        }
+
+        &.uploaded {
+            background: $success-color;
+        }
+    }
+
+    &__icon {
+        font-size: 100px;
+        color: $text-color;
+    }
+
+    &__input {
+        display: none;
+    }
+
+    &__button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: $text-color;
+        background-color: $success-color;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+
+        &:active {
+            background-color: $success-color;
+            transform: translateY(0);
+        }
+
+        &:disabled {
+            background-color: $border-color;
+            cursor: not-allowed;
+        }
+    }
+}

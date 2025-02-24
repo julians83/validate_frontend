@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDocumentUrls } from "../../../../../context/DocumentUrlsContext";
 import DocumentForm from "../DocumentForm/DocumentForm";
-import ValidateIdentity from "../UploadDocument/UploadDocument";
+import UploadDocument from "../UploadDocument/UploadDocument";
 import ValidationResults from "../ValidationResults/ValidationsResults";
 import "./DocumentValidation.scss";
 
@@ -50,23 +50,24 @@ const DocumentValidation = () => {
           />
         )}
         {step === 2 && (
-          <ValidateIdentity
+          <UploadDocument
             image={frontImage}
             setImage={setFrontImage}
             onNext={() => setStep(3)}
             url={frontUrl}
+            step={step}
           />
         )}
         {step === 3 && (
-          <ValidateIdentity
+          <UploadDocument
             image={backImage}
             setImage={setBackImage}
             onNext={() => setStep(4)}
             url={reverseUrl}
-
+            step={step}
             />
         )}
-        {step === 5 && <ValidationResults />}
+        {step === 4 && <ValidationResults />}
       </div>
     </div>
   );

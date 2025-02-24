@@ -1,7 +1,6 @@
-import React from 'react';
-import './LoadingSpinner.scss';
+import './Loading.scss';
 
-const LoadingSpinner: React.FC = () => {
+const LoadingSpinner = () => {
   return (
     <div className="spinner-container">
       <div className="spinner"></div>

@@ -1,12 +1,15 @@
-import { useState } from "react";
-import { Country, DocumentType } from "../../../../../Enums/Document";
-import { useDocumentContext } from "../../../../../context/DocumentContext";
-import { useDocumentUrls } from "../../../../../context/DocumentUrlsContext";
-import { GenericResponse } from "../../../../../models/Http";
-import { ValidateIdentityUseCase } from "../../../application/ValidateIdentity.useCases";
-import { DataToCreateValidation } from "../../../domain/ValidateIdentity";
-import { ValidateIdentityController } from "../../controllers/UploadDocument.controller";
-import "./DocumentForm.scss";
+// DocumentForm.tsx
+import React, { useState } from 'react';
+import LoadingSpinner from '../../../../../Components/Loading/Loading';
+import { Country, DocumentType } from '../../../../../Enums/Document';
+import { useDocumentContext } from '../../../../../context/DocumentContext';
+import { useDocumentUrls } from '../../../../../context/DocumentUrlsContext';
+import { useValidationId } from '../../../../../context/ValidationId';
+import { GenericResponse } from '../../../../../models/Http';
+import { ValidateIdentityUseCase } from '../../../application/ValidateIdentity.useCases';
+import { DataToCreateValidation } from '../../../domain/ValidateIdentity';
+import { ValidateIdentityController } from '../../controllers/UploadDocument.controller';
+import './DocumentForm.scss';
 
 interface DocumentFormProps {
   formData: {
@@ -26,37 +29,48 @@ const DocumentForm: React.FC<DocumentFormProps> = ({
 }) => {
   const { setDocumentData } = useDocumentContext();
   const { setFrontUrl, setReverseUrl } = useDocumentUrls();
+  const { setValidationId } = useValidationId();
   const [isComplete, setIsComplete] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newFormData = { ...formData, [e.target.name]: e.target.value };
-    setFormData(newFormData);
-    if (newFormData.country && newFormData.documentType) setIsComplete(true);
-  };
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const newFormData = { ...formData, [e.target.name]: e.target.value };
+      setFormData(newFormData);
+      if (newFormData.country && newFormData.documentType) setIsComplete(true);
+    };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.country && formData.documentType) {
       setDocumentData(formData.country, formData.documentType);
+      const countryKey = Object.keys(Country).find(
+        (key) => Country[key as keyof typeof Country] === formData.country
+      );
       const data: DataToCreateValidation = {
-        type: "document-validation",
-        country: formData.country,
+        type: 'document-validation',
+        country: countryKey || '',
         document_type: formData.documentType,
       };
-
-      const response: GenericResponse = await ValidateIdentityUseCase.createValidation(
-        validateIdentityController,
-        data
-      );
+      setLoading(true);
+      const response: GenericResponse =
+        await ValidateIdentityUseCase.createValidation(
+          validateIdentityController,
+          data
+        );
 
       if (response.status === 201) {
-        console.log("Validation created", response.data);
         setFrontUrl(response?.data?.instructions?.front_url);
         setReverseUrl(response?.data?.instructions?.reverse_url);
+        setValidationId(response?.data?.validation_id);
+        setLoading(false);
         onNext();
       }
     }
   };
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <form onSubmit={handleSubmit} className="document-form">
@@ -90,7 +104,7 @@ const DocumentForm: React.FC<DocumentFormProps> = ({
         </option>
         {Object.values(DocumentType).map((docType) => (
           <option key={docType} value={docType}>
-            {docType.replace("-", " ").toUpperCase()}
+            {docType.replace('-', ' ').toUpperCase()}
           </option>
         ))}
       </select>

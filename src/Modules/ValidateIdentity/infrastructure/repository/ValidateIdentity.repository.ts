@@ -44,9 +44,8 @@ export default class ValidateIdentityRepository {
   async getValidation(data: {
     validation_id: string;
   }): Promise<GenericResponse> {
-    const url = `http://localhost:3001/identity-validate/validate-document/${data.validation_id}`;
-    const response = await fetch(url);
-    const result = await response.json();
+    const response = await fetch(`${url}/validations/${data.validation_id}`);
+    const result: GenericResponse = await response.json();
     return {
       status: response.status,
       data: result,
