@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDocumentUrls } from "../../../../../context/DocumentUrlsContext";
 import DocumentForm from "../DocumentForm/DocumentForm";
 import UploadDocument from "../UploadDocument/UploadDocument";
-import ValidationResults from "../ValidationResults/ValidationsResults";
+import ValidationResults from "../ValidationResults/ValidationResults";
 import "./DocumentValidation.scss";
 
 const DocumentValidation = () => {

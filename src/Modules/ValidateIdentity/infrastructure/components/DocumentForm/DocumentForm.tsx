@@ -1,4 +1,3 @@
-// DocumentForm.tsx
 import React, { useState } from 'react';
 import LoadingSpinner from '../../../../../Components/Loading/Loading';
 import { Country, DocumentType } from '../../../../../Enums/Document';

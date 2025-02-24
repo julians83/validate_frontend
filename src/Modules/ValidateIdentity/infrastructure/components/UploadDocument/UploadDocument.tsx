@@ -42,16 +42,15 @@ const UploadDocument: React.FC<UploadDocumentProps> = ({
     }
   };
 
-  // Determinar el texto y el ícono según el paso
   let title = "";
   let IconComponent = FaIdCard;
 
   if (step === 2) {
     title = "Sube la parte frontal de tu documento de identidad";
-    IconComponent = FaIdCard; // Ícono para la parte frontal
+    IconComponent = FaIdCard;
   } else if (step === 3) {
     title = "Sube la parte posterior de tu documento de identidad";
-    IconComponent = FaIdCardAlt; // Ícono para la parte posterior
+    IconComponent = FaIdCardAlt;
   }
 
   return (
