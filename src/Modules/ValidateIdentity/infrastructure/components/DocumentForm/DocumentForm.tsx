@@ -7,7 +7,7 @@ import { useValidationId } from '../../../../../context/ValidationId';
 import { GenericResponse } from '../../../../../models/Http';
 import { ValidateIdentityUseCase } from '../../../application/ValidateIdentity.useCases';
 import { DataToCreateValidation } from '../../../domain/ValidateIdentity';
-import { ValidateIdentityController } from '../../controllers/UploadDocument.controller';
+import { ValidateIdentityController } from '../../controllers/ValidateIdentity.controller';
 import './DocumentForm.scss';
 
 interface DocumentFormProps {
@@ -45,10 +45,13 @@ const DocumentForm: React.FC<DocumentFormProps> = ({
       const countryKey = Object.keys(Country).find(
         (key) => Country[key as keyof typeof Country] === formData.country
       );
+      const documentKey = Object.keys(DocumentType).find(
+        (key) => DocumentType[key as keyof typeof DocumentType] === formData.documentType
+      );
       const data: DataToCreateValidation = {
         type: 'document-validation',
         country: countryKey || '',
-        document_type: formData.documentType,
+        document_type: documentKey || '',
       };
       setLoading(true);
       const response: GenericResponse =
@@ -63,6 +66,9 @@ const DocumentForm: React.FC<DocumentFormProps> = ({
         setValidationId(response?.data?.validation_id);
         setLoading(false);
         onNext();
+      } else {
+        setLoading(false);
+        alert('Error al validar el documento');
       }
     }
   };

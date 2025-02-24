@@ -9,15 +9,15 @@ export enum Country {
   }
   
   export enum DocumentType {
-    NATIONAL_ID = "national-id",
-    FOREIGN_ID = "foreign-id",
-    DRIVER_LICENSE = "driver-license",
-    PASSPORT = "passport",
-    IDENTITY_CARD = "identity-card",
+    "NATIONAL-ID" = "Documento Nacional de Identidad",
+    "FOREIGN-ID" = "Cédula de Extranjería",
+    "DRIVER-LICENSE" = "Licencia de Conducir",
+    PASSPORT = "Pasaporte",
+    "IDENTITY-CARD" = "Tarjeta de Identidad",
     RUT = "rut",
     PPT = "ppt",
     INVOICE = "invoice",
-    PICTURE_ID = "picture-id",
+    "PICTURE-ID" = "picture-id",
     RECORD = "record",
     CNH = "cnh",
   }

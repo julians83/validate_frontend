@@ -3,7 +3,7 @@ import { FaRedo } from "react-icons/fa";
 import { useValidationId } from "../../../../../context/ValidationId";
 import { ValidateIdentityUseCase } from "../../../application/ValidateIdentity.useCases";
 import { DataToGetValidation } from "../../../domain/ValidateIdentity";
-import { ValidateIdentityController } from "../../controllers/UploadDocument.controller";
+import { ValidateIdentityController } from "../../controllers/ValidateIdentity.controller";
 import "./ValidationResults.scss";
 
 const validateIdentityController = new ValidateIdentityController();
@@ -21,7 +21,6 @@ const ValidationResults = () => {
       validateIdentityController,
       data
     );
-    console.log(response);
     if (response.status === 200) {
       setValidationStatus(response.data.validation_status);
     }

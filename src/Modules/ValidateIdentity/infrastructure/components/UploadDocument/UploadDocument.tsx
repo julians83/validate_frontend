@@ -3,7 +3,7 @@ import { FaIdCard, FaIdCardAlt } from "react-icons/fa";
 import { GenericResponse } from "../../../../../models/Http";
 import { ValidateIdentityUseCase } from "../../../application/ValidateIdentity.useCases";
 import { DataToValidateIdentity } from "../../../domain/ValidateIdentity";
-import { ValidateIdentityController } from "../../controllers/UploadDocument.controller";
+import { ValidateIdentityController } from "../../controllers/ValidateIdentity.controller";
 import "./UploadDocument.scss";
 
 interface UploadDocumentProps {
