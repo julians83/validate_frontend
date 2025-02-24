@@ -8,7 +8,7 @@ export interface DataToCreateValidation {
   document_type: DocumentType;
 }
 
-export interface DataToUploadDocument {
+export interface DataToValidateIdentity {
   file: File;
   url: string;
 }
@@ -20,8 +20,8 @@ export interface DataToGetValidation {
 
   
 
-export interface IUploadDocument {
+export interface IValidateIdentity {
   createValidation(data: DataToCreateValidation): Promise<GenericResponse>;
-  uploadDocument(data: DataToUploadDocument): Promise<GenericResponse>;
+  uploadDocument(data: DataToValidateIdentity): Promise<GenericResponse>;
   getValidation(data: DataToGetValidation): Promise<GenericResponse>;
 }

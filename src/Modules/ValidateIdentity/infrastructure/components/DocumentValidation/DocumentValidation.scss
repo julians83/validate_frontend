@@ -1,0 +1,73 @@
+@use '@/styles/variables.scss'as *;
+
+.validation-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: $background-color;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: "Inter", sans-serif;
+}
+
+.validation-stepper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-bottom: 2rem;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        width: 80%;
+        height: 4px;
+        background: linear-gradient(90deg, $primary-color 30%, $hover-color 100%);
+        z-index: 0;
+    }
+
+    &__step {
+        position: relative;
+        z-index: 1;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 700;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &--completed {
+            background: $primary-color;
+            color: white;
+            box-shadow: 0 0 10px rgba(0, 255, 127, 0.5);
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+
+        &--active {
+            background: $hover-color;
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 165, 0, 0.8);
+            transform: scale(1.2);
+        }
+
+        &--disabled {
+            background: $border-color;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+        }
+    }
+}
+
+.validation-content {
+    margin-top: 1.5rem;
+}

@@ -1,10 +1,10 @@
 import { GenericResponse } from "../../../../models/Http";
 import {
-    DataToCreateValidation,
-    DataToUploadDocument,
-} from "../../domain/UploadDocument";
+  DataToCreateValidation,
+  DataToValidateIdentity,
+} from "../../domain/ValidateIdentity";
 
-export default class UploadDocumentRepository {
+export default class ValidateIdentityRepository {
   async createValidation(
     data: DataToCreateValidation
   ): Promise<GenericResponse> {
@@ -24,7 +24,7 @@ export default class UploadDocumentRepository {
     };
   }
 
-  async uploadDocument(data: DataToUploadDocument): Promise<GenericResponse> {
+  async uploadDocument(data: DataToValidateIdentity): Promise<GenericResponse> {
     const formData = new FormData();
     formData.append("file", data.file);
     const response = await fetch(data.url, {

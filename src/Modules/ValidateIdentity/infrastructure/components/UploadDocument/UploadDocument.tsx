@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { FaIdCard } from "react-icons/fa";
 
-const UploadDocument = ({ image, setImage, onNext }: any) => {
-  const [uploaded, setUploaded] = useState(false);
+interface ValidateIdentityProps {
+  image: File | null;
+  setImage: (image: File) => void;
+  onNext: () => void;
+}
 
+const ValidateIdentity: React.FC<ValidateIdentityProps> = ({ image, setImage, onNext }) => {
+  const [uploaded, setUploaded] = useState(false);
+  console.log(image);
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setImage(e.target.files[0]);
@@ -24,4 +30,4 @@ const UploadDocument = ({ image, setImage, onNext }: any) => {
   );
 };
 
-export default UploadDocument;
+export default ValidateIdentity;
