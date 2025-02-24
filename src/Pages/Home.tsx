@@ -1,4 +1,4 @@
-import DocumentForm from "../Components/DocumentForm";
+import DocumentForm from "../Components/DocumentForm/DocumentForm";
 import UploadDocument from "../Modules/UploadDocument/infrastructure/components/UploadDocument";
 
 const Home = () => {

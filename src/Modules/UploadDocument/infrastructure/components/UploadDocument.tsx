@@ -1,46 +1,27 @@
 import { useState } from "react";
-import { useDocumentContext } from "../../../../context/DocumentContext";
+import { FaIdCard } from "react-icons/fa";
 
-const UploadPhotos = () => {
-  const { isComplete } = useDocumentContext();
-  const [frontImage, setFrontImage] = useState<File | null>(null);
-  const [backImage, setBackImage] = useState<File | null>(null);
+const UploadDocument = ({ image, setImage, onNext }: any) => {
+  const [uploaded, setUploaded] = useState(false);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, setImage: (file: File | null) => void) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setImage(e.target.files[0]);
+      setUploaded(true);
     }
   };
 
-  if (!isComplete) return null; // Solo mostrar si el formulario está completo
-
   return (
-    <div className="max-w-md mx-auto p-6 mt-4 bg-gray-800 text-white rounded-lg shadow-lg">
-      <h2 className="text-xl font-bold mb-4">Sube tus fotos</h2>
+    <div className="upload-step">
+      <h2>Sube tu documento</h2>
+      <label className={`upload-step__box ${uploaded ? "uploaded" : ""}`}>
+        <input type="file" onChange={handleFileChange} className="upload-step__input" />
+        <FaIdCard className="upload-step__icon" />
+      </label>
 
-      <div className="mb-4">
-        <label className="block mb-2 text-sm font-semibold">Frontal del documento:</label>
-        <input
-          type="file"
-          onChange={(e) => handleFileChange(e, setFrontImage)}
-          className="w-full p-2 bg-gray-700 rounded-md"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label className="block mb-2 text-sm font-semibold">Reverso del documento:</label>
-        <input
-          type="file"
-          onChange={(e) => handleFileChange(e, setBackImage)}
-          className="w-full p-2 bg-gray-700 rounded-md"
-        />
-      </div>
-
-      {frontImage && backImage && (
-        <p className="text-green-400 font-bold">✅ Archivos listos para subir</p>
-      )}
+      {uploaded && <button onClick={onNext}>Siguiente</button>}
     </div>
   );
 };
 
-export default UploadPhotos;
+export default UploadDocument;

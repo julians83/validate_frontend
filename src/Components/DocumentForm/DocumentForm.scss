@@ -1,0 +1,71 @@
+@use '@/styles/variables.scss'as *;
+
+.document-form {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: $background-color;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: "Inter", sans-serif;
+
+    &__title {
+        font-size: 26px;
+        font-weight: 700;
+        color: $primary-color;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+    }
+
+    &__label {
+        display: block;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 600;
+        color: $text-color;
+        margin-bottom: 8px;
+    }
+
+    &__select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid $border-color;
+        border-radius: 8px;
+        font-size: 16px;
+        background: #fff;
+        transition: all 0.3s ease;
+
+        &:focus {
+            border-color: $primary-color;
+            box-shadow: 0 0 8px rgba(29, 78, 216, 0.5);
+            outline: none;
+        }
+    }
+
+    &__button {
+        width: 100%;
+        padding: 14px;
+        margin-top: 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(135deg, $primary-color 30%, $hover-color 100%);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+
+        &:hover {
+            background: linear-gradient(135deg, $hover-color 30%, $primary-color 100%);
+            transform: translateY(-2px);
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 12px rgba(29, 78, 216, 0.6);
+        }
+    }
+}

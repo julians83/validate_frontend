@@ -1,4 +1,3 @@
-import './App.css'
 import { DocumentProvider } from './context/DocumentContext'
 import Home from './Pages/Home'
 

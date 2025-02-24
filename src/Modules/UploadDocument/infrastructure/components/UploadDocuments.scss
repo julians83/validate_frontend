@@ -1,0 +1,58 @@
+@use '@/styles/variables.scss'as *;
+
+.upload-photos {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background: $background-color;
+    border-radius: 12px;
+    text-align: center;
+    color: $text-color;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+
+    &__title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    &__container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__upload-box {
+        width: 120px;
+        height: 140px;
+        background: $card-color;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: $hover-color;
+        }
+
+        &--uploaded {
+            background: $success-color;
+        }
+    }
+
+    &__icon {
+        font-size: 50px;
+        color: $text-color;
+    }
+
+    &__success {
+        margin-top: 10px;
+        font-weight: bold;
+        color: $success-color;
+    }
+
+    &__input {
+        display: none;
+    }
+}

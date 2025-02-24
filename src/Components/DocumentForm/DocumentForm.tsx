@@ -1,16 +1,24 @@
 import { useState } from "react";
-import { Country, DocumentType } from "../Enums/Document";
-import { useDocumentContext } from "../context/DocumentContext";
+import { Country, DocumentType } from "../../Enums/Document";
+import { useDocumentContext } from "../../context/DocumentContext";
 
-const DocumentForm = () => {
+interface DocumentFormProps {
+  formData: {
+    country: string;
+    documentType: string;
+  };
+  setFormData: (data: { country: string; documentType: string }) => void;
+  onNext: () => void;
+}
+
+const DocumentForm: React.FC<DocumentFormProps> = ({formData, setFormData, onNext}) => {
   const { setDocumentData } = useDocumentContext();
-  const [formData, setFormData] = useState({
-    country: "",
-    documentType: "",
-  });
+  const [isComplete, setIsComplete] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const newFormData = { ...formData, [e.target.name]: e.target.value };
+    setFormData(newFormData);
+    setIsComplete(!!newFormData.country && !!newFormData.documentType);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -63,12 +71,7 @@ const DocumentForm = () => {
         ))}
       </select>
 
-      <button
-        type="submit"
-        className="w-full p-3 mt-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        Validar Documento
-      </button>
+      {isComplete && <button onClick={onNext}>Siguiente</button>}
     </form>
   );
 };
